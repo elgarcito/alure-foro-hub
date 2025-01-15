@@ -3,6 +3,7 @@ package com.alura.foro_hub.controller;
 import com.alura.foro_hub.topico.DatosTopico;
 import com.alura.foro_hub.topico.Topico;
 import com.alura.foro_hub.topico.TopicoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,12 @@ public class TopicoController {
     @GetMapping
     public List<Topico> listadoDeTopicos(){
         return topicoRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Topico obtenerTopicoUsandoId(@PathVariable Long id){
+        Topico topico = topicoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Topico not found with id: " + id));
+        return topico;
     }
 }
