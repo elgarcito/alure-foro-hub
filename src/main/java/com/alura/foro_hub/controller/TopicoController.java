@@ -47,4 +47,13 @@ public class TopicoController {
         topico.actualizarDatos(datosTopicosParaActualizar, topicoRepository);
         return topico;
     }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void borrarTopicoUsandoId(@PathVariable Long id){
+        Topico topico = topicoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Topico not found with id: " + id));
+        topicoRepository.deleteById(id);
+        System.out.println("Topico con id: "+ id +" borrado correctamente");
+    }
 }
