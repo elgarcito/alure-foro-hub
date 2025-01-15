@@ -29,6 +29,10 @@ public class Topico {
         this.curso = datosTopico.curso();
     }
 
+    // Default constructor (required by Hibernate)
+    public Topico() {
+    }
+
     // Getters y Setters
     public Long getId() {
         return id;
