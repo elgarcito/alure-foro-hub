@@ -29,6 +29,7 @@ public class Topico {
         this.curso = datosTopico.curso();
     }
 
+
     // Default constructor (required by Hibernate)
     public Topico() {
     }
@@ -89,4 +90,41 @@ public class Topico {
     public void setCurso(String curso) {
         this.curso = curso;
     }
+
+    public void actualizarDatos(DatosTopico datosTopico, TopicoRepository topicoRepository) {
+        if (datosTopico.titulo() != null) {
+            // Verificar si el título ya existe en otro registro
+            boolean tituloExistente = topicoRepository.existsByTituloAndIdNot(datosTopico.titulo(), this.id);
+            if (tituloExistente) {
+                throw new IllegalArgumentException("El título ya está en uso por otro tópico.");
+            }
+            this.titulo = datosTopico.titulo();
+        }
+
+        if (datosTopico.mensaje() != null) {
+            // Verificar si el mensaje ya existe en otro registro
+            boolean mensajeExistente = topicoRepository.existsByMensajeAndIdNot(datosTopico.mensaje(), this.id);
+            if (mensajeExistente) {
+                throw new IllegalArgumentException("El mensaje ya está en uso por otro tópico.");
+            }
+            this.mensaje = datosTopico.mensaje();
+        }
+
+        if (datosTopico.fechaDeCreacion() != null) {
+            this.fechaDeCreacion = datosTopico.fechaDeCreacion();
+        }
+
+        if (datosTopico.status() != null) {
+            this.status = datosTopico.status();
+        }
+
+        if (datosTopico.autor() != null) {
+            this.autor = datosTopico.autor();
+        }
+
+        if (datosTopico.curso() != null) {
+            this.curso = datosTopico.curso();
+        }
+    }
+
 }
