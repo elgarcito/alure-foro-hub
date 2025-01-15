@@ -32,9 +32,19 @@ public class TopicoController {
     }
 
     @GetMapping("/{id}")
+    @Transactional
     public Topico obtenerTopicoUsandoId(@PathVariable Long id){
         Topico topico = topicoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Topico not found with id: " + id));
+        return topico;
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public Topico actualizarTopicoUsandoId(@RequestBody @Valid DatosTopico datosTopicosParaActualizar,@PathVariable Long id){
+        Topico topico = topicoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Topico not found with id: " + id));
+        topico.actualizarDatos(datosTopicosParaActualizar, topicoRepository);
         return topico;
     }
 }
