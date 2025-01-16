@@ -1,9 +1,8 @@
-package com.alura.foro_hub.topico;
+package com.alura.foro_hub.domain.topico;
 
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Table(name = "topicos")
 @Entity(name = "Topico")
